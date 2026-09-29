@@ -29,7 +29,7 @@
     .subtitle { color: var(--muted); font-size: 17px; margin: 0; }
     .info-box, .warning-box { border-left: 5px solid var(--secondary); background: var(--accent); padding: 16px 18px; margin: 20px 0; border-radius: 0 6px 6px 0; }
     .warning-box { border-left-color: #b54708; background: var(--warning); }
-    .contact-box { margin: 24px 0; padding: 20px; color: #fff; background: var(--whatsapp); border-radius: 8px; }
+    .contact-box { margin: 24px 0 0; padding: 20px; color: #fff; background: var(--whatsapp); border-radius: 8px; }
     .contact-box p { margin: 0 0 12px; }
     .whatsapp-link { display: inline-block; padding: 10px 14px; border-radius: 6px; color: #075e54; background: #fff; font-weight: bold; text-decoration: none; }
     .whatsapp-link:hover { background: #e9f8ee; }
@@ -56,6 +56,10 @@
     <header>
       <h1>Documentação da Planilha de Suporte e Indicadores</h1>
       <p class="subtitle">Referência funcional para integração entre a plataforma de chamados e o aplicativo de indicadores.</p>
+      <section class="contact-box" aria-label="Contato para dúvidas">
+        <p><strong>Ficou com alguma dúvida sobre este documento?</strong></p>
+        <a class="whatsapp-link" href="https://wa.me/5585981998007" target="_blank" rel="noopener noreferrer">Conversar pelo WhatsApp: +55 85 98199-8007</a>
+      </section>
     </header>
 
     <nav class="toc">
@@ -295,11 +299,6 @@
       <h2>15. Resultado esperado</h2>
       <p>O usuário não deverá copiar informações manualmente da plataforma de chamados para a planilha. O aplicativo deverá manter dados estruturados, complementar informações operacionais, controlar o relacionamento entre chamados e equipamentos, atualizar indicadores e gerar relatórios por período, regional e unidade.</p>
       <p>A planilha atual deve ser utilizada como referência de validação. Durante o desenvolvimento, recomenda-se comparar os resultados do sistema com os resultados já existentes, sobretudo para chamados com múltiplos itens, demandas sem número de chamado e conclusões em mês diferente do mês de abertura.</p>
-    </section>
-
-    <section class="contact-box" aria-label="Contato para dúvidas">
-      <p><strong>Ficou com alguma dúvida sobre este documento?</strong></p>
-      <a class="whatsapp-link" href="https://wa.me/5585981998007" target="_blank" rel="noopener noreferrer">Conversar pelo WhatsApp: +55 85 98199-8007</a>
     </section>
 
     <footer>
