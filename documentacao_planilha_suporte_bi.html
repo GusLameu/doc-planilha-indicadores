@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentação — Planilha de Suporte e Indicadores</title>
+  <style>
+    :root {
+      --primary: #0f4c5c;
+      --secondary: #2f7d8c;
+      --accent: #e8f3f5;
+      --text: #1d2939;
+      --muted: #667085;
+      --border: #d0d5dd;
+      --surface: #ffffff;
+      --background: #f6f8fa;
+      --warning: #fff6df;
+      --whatsapp: #128c7e;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--text); background: var(--background); font-family: Arial, Helvetica, sans-serif; font-size: 16px; line-height: 1.55; }
+    .page { width: min(1120px, calc(100% - 32px)); margin: 32px auto; padding: 48px 56px; background: var(--surface); box-shadow: 0 2px 12px rgba(16, 24, 40, .08); border-radius: 10px; }
+    header { border-bottom: 4px solid var(--primary); padding-bottom: 24px; margin-bottom: 32px; }
+    h1, h2, h3 { color: var(--primary); line-height: 1.25; }
+    h1 { margin: 0 0 12px; font-size: 32px; }
+    h2 { margin-top: 40px; padding-bottom: 8px; border-bottom: 1px solid var(--border); font-size: 24px; }
+    h3 { margin-top: 28px; font-size: 19px; }
+    p { margin: 12px 0; }
+    .subtitle { color: var(--muted); font-size: 17px; margin: 0; }
+    .info-box, .warning-box { border-left: 5px solid var(--secondary); background: var(--accent); padding: 16px 18px; margin: 20px 0; border-radius: 0 6px 6px 0; }
+    .warning-box { border-left-color: #b54708; background: var(--warning); }
+    .contact-box { margin: 24px 0; padding: 20px; color: #fff; background: var(--whatsapp); border-radius: 8px; }
+    .contact-box p { margin: 0 0 12px; }
+    .whatsapp-link { display: inline-block; padding: 10px 14px; border-radius: 6px; color: #075e54; background: #fff; font-weight: bold; text-decoration: none; }
+    .whatsapp-link:hover { background: #e9f8ee; }
+    ul, ol { padding-left: 24px; }
+    li { margin: 6px 0; }
+    table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: 14px; }
+    th, td { border: 1px solid var(--border); padding: 10px; vertical-align: top; text-align: left; }
+    th { background: var(--primary); color: #fff; }
+    tr:nth-child(even) td { background: #f9fafb; }
+    code, pre { font-family: Consolas, "Courier New", monospace; font-size: .92em; }
+    pre { margin: 16px 0; padding: 14px; background: #101828; color: #f9fafb; border-radius: 6px; overflow-x: auto; }
+    .toc { background: #f9fafb; border: 1px solid var(--border); padding: 20px 24px; border-radius: 8px; }
+    .toc ol { margin: 8px 0 0; }
+    .toc a { color: var(--secondary); text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+    footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
+    footer a { color: var(--secondary); }
+    @media print { body { background: #fff; } .page { width: 100%; margin: 0; padding: 0; box-shadow: none; border-radius: 0; } h2 { page-break-after: avoid; } table, .info-box, .warning-box, .contact-box { page-break-inside: avoid; } }
+    @media (max-width: 720px) { .page { width: 100%; margin: 0; padding: 28px 20px; border-radius: 0; } h1 { font-size: 26px; } table { display: block; overflow-x: auto; white-space: normal; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <h1>Documentação da Planilha de Suporte e Indicadores</h1>
+      <p class="subtitle">Referência funcional para integração entre a plataforma de chamados e o aplicativo de indicadores.</p>
+    </header>
+
+    <nav class="toc">
+      <strong>Índice</strong>
+      <ol>
+        <li><a href="#objetivo">Objetivo</a></li>
+        <li><a href="#estrutura">Estrutura geral</a></li>
+        <li><a href="#cadastro">Cadastro principal</a></li>
+        <li><a href="#status">Status</a></li>
+        <li><a href="#integracao">Fluxo de integração</a></li>
+        <li><a href="#indicadores">Indicadores</a></li>
+        <li><a href="#grupos">DIOPE e regionais</a></li>
+        <li><a href="#modelo">Modelo de dados</a></li>
+        <li><a href="#validacoes">Validações necessárias</a></li>
+        <li><a href="#requisitos">Requisitos de automação</a></li>
+      </ol>
+    </nav>
+
+    <section id="objetivo">
+      <h2>1. Objetivo</h2>
+      <p>Esta planilha registra, acompanha e consolida demandas de suporte técnico, manutenção, instalação, telemetria e medição. Ela é usada para registrar solicitações, acompanhar atendimentos, documentar soluções e gerar indicadores mensais.</p>
+      <p>O objetivo da automação é eliminar o preenchimento manual: a plataforma de chamados passa a ser a principal fonte das solicitações, enquanto o aplicativo organiza os dados e atualiza os indicadores automaticamente.</p>
+    </section>
+
+    <section id="estrutura">
+      <h2>2. Estrutura geral</h2>
+      <p>O arquivo atual possui áreas funcionais que devem ser preservadas no aplicativo, ainda que o novo sistema não reproduza o mesmo layout visual.</p>
+      <ol>
+        <li><strong>Demandas em andamento:</strong> demandas abertas com status como ANDAMENTO, PENDENTE ou PARALISADA.</li>
+        <li><strong>Concluídos:</strong> demandas encerradas com serviço e solução registrados.</li>
+        <li><strong>Gráficos:</strong> visualizações dos indicadores mensais e acumulados.</li>
+        <li><strong>Gráficos DIOPE:</strong> visões voltadas à DIOPE e às unidades vinculadas.</li>
+        <li><strong>Dados:</strong> listas de apoio para padronização de campos e filtros.</li>
+        <li><strong>Resumo e Resumo APREST:</strong> consolidação dos resultados mensais.</li>
+        <li><strong>DiopeVinculadas:</strong> detalhamento por unidade vinculada à DIOPE.</li>
+      </ol>
+    </section>
+
+    <section id="cadastro">
+      <h2>3. Cadastro principal das demandas</h2>
+      <p>Cada linha representa uma ocorrência ou item de atendimento. Um mesmo chamado pode gerar várias linhas quando envolve mais de um equipamento, medidor ou local.</p>
+      <table>
+        <thead><tr><th>Campo</th><th>Descrição</th><th>Origem ou regra esperada</th></tr></thead>
+        <tbody>
+          <tr><td>Regional</td><td>Regional responsável pelo atendimento, por exemplo CRATO, LIMOEIRO ou METROPOLITANAS.</td><td>Plataforma de chamados, cadastro do local ou definição operacional.</td></tr>
+          <tr><td>Data</td><td>Data de recebimento ou abertura da demanda.</td><td>Data de abertura do chamado.</td></tr>
+          <tr><td>Chamado</td><td>Tipo de demanda, como Man.Instrumento, Inst.Instrum. ou Med.Comparativa.</td><td>Categoria do chamado.</td></tr>
+          <tr><td>Demanda</td><td>Descrição resumida da solicitação.</td><td>Título e/ou descrição do chamado.</td></tr>
+          <tr><td>Marca / Modelo</td><td>Fabricante e modelo do equipamento.</td><td>Cadastro do equipamento.</td></tr>
+          <tr><td>Tombo</td><td>Número patrimonial ou identificador interno.</td><td>Cadastro patrimonial; pode ser N/A.</td></tr>
+          <tr><td>N° de Série</td><td>Número de série do equipamento.</td><td>Cadastro do equipamento; pode ser N/A.</td></tr>
+          <tr><td>Situação ou defeito relatado</td><td>Problema ou necessidade apresentada.</td><td>Descrição do chamado.</td></tr>
+          <tr><td>Chamado por</td><td>Canal e solicitante, por exemplo Chamado Online/Charles ou WhatsApp/Zélio.</td><td>Canal e usuário solicitante.</td></tr>
+          <tr><td>Data Manut.</td><td>Data de execução do atendimento.</td><td>Data de manutenção ou encerramento.</td></tr>
+          <tr><td>Técnico responsável</td><td>Profissional que executou o atendimento.</td><td>Atribuição ou informação de encerramento.</td></tr>
+          <tr><td>Local / Referência</td><td>Cliente, unidade, estação, indústria, poço ou outra referência.</td><td>Local associado ao chamado.</td></tr>
+          <tr><td>Solução</td><td>Serviço realizado e resultado obtido.</td><td>Comentário de encerramento ou relatório técnico.</td></tr>
+          <tr><td>Status</td><td>Situação atual da demanda.</td><td>Status padronizado no sistema.</td></tr>
+          <tr><td>N° Chamado</td><td>Identificador externo do chamado.</td><td>ID ou número da plataforma de chamados.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="status">
+      <h2>4. Status das demandas</h2>
+      <ul>
+        <li><strong>ANDAMENTO:</strong> demanda aberta e em acompanhamento.</li>
+        <li><strong>PENDENTE:</strong> demanda aguardando informação, material, ação ou definição.</li>
+        <li><strong>PARALISADA:</strong> atendimento interrompido ou dependente de condição externa.</li>
+        <li><strong>CONCLUÍDO:</strong> atendimento encerrado e solução registrada.</li>
+        <li><strong>CANCELADO:</strong> recomendado para solicitações encerradas sem execução.</li>
+      </ul>
+      <div class="warning-box"><strong>Validação necessária:</strong> existem registros em que a solução informa que o chamado foi cancelado, mas o status permanece como CONCLUÍDO. A regra oficial deve ser definida antes da implementação.</div>
+    </section>
+
+    <section id="integracao">
+      <h2>5. Fluxo de integração</h2>
+      <ol>
+        <li>Consultar novos chamados e alterações na plataforma online.</li>
+        <li>Identificar o chamado pelo seu número ou ID único.</li>
+        <li>Associar regional, local e equipamento, quando essas informações existirem.</li>
+        <li>Criar ou atualizar a demanda no aplicativo.</li>
+        <li>Sincronizar status, técnico, data de manutenção e solução.</li>
+        <li>Recalcular indicadores e atualizar dashboards.</li>
+      </ol>
+      <div class="info-box"><strong>Regra central:</strong> o número do chamado deve ser a principal chave de integração. Quando um chamado possuir vários equipamentos ou locais, devem existir vários itens vinculados ao mesmo chamado principal.</div>
+      <h3>Chamados com vários itens</h3>
+      <p>Um mesmo número de chamado pode estar associado a diferentes medidores. Portanto, a estrutura recomendada é um registro de chamado principal e múltiplos itens de atendimento, cada qual com equipamento, número de série, local e solução próprios.</p>
+      <h3>Inclusão e atualização</h3>
+      <p>Uma demanda deve ser criada quando o chamado ainda não existir na base. Para solicitações recebidas por WhatsApp, e-mail, supervisório ou identificação interna, o sistema deve permitir um identificador interno quando não existir número de chamado externo.</p>
+      <p>Registros existentes devem ser atualizados quando houver mudanças de status, técnico, data de manutenção, solução, local, equipamento ou descrição da situação.</p>
+      <h3>Prevenção de duplicidade</h3>
+      <ul>
+        <li>Chamado com um item: usar o número do chamado como identificador único.</li>
+        <li>Chamado com vários itens: usar <code>número do chamado + equipamento/local</code>.</li>
+        <li>Demanda sem número de chamado: usar identificador interno gerado pelo sistema.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>6. Classificação das demandas</h2>
+      <p>Os tipos de chamado devem ser mantidos em um cadastro padronizado e extensível. Exemplos identificados na planilha:</p>
+      <ul>
+        <li><strong>Man.Instrumento:</strong> manutenção de instrumentos e medidores.</li>
+        <li><strong>Inst.Instrum.:</strong> instalação de instrumentos ou medidores.</li>
+        <li><strong>Man.Telemetria:</strong> intervenção na transmissão de dados.</li>
+        <li><strong>Man.Elétrica / Inst.Elétrica:</strong> manutenção ou instalação elétrica.</li>
+        <li><strong>Med.Comparativa / Med.Vazão:</strong> atividades de medição.</li>
+        <li><strong>Sup.Técnico, Sup.SATMED, Sup.Elipse e Sup.E3Mobile:</strong> atividades de suporte.</li>
+        <li><strong>Dim.Instrumento e Dim.Cavalete:</strong> atividades de dimensionamento.</li>
+      </ul>
+    </section>
+
+    <section id="indicadores">
+      <h2>7. Cálculo dos indicadores</h2>
+      <p>Os indicadores são calculados mensalmente. A demanda recebida deve considerar a data de abertura/recebimento; a demanda concluída deve considerar uma data única de conclusão, a ser validada pela equipe.</p>
+      <h3>Demandas recebidas</h3>
+      <p>Quantidade de demandas abertas no mês.</p>
+      <h3>Recebido acumulado</h3>
+      <pre>Recebido acumulado do mês = recebido acumulado anterior + demandas recebidas no mês</pre>
+      <h3>Demandas concluídas</h3>
+      <p>Quantidade de demandas concluídas no mês. A regra recomendada é usar a data de manutenção/encerramento efetivo.</p>
+      <h3>Concluído acumulado</h3>
+      <pre>Concluído acumulado do mês = concluído acumulado anterior + demandas concluídas no mês</pre>
+      <h3>Percentual mensal</h3>
+      <pre>Percentual mensal = demandas concluídas no mês / demandas recebidas no mês</pre>
+      <p>Quando não houver demanda recebida, o sistema deve retornar 0% ou N/A, conforme a regra aprovada, sem realizar divisão por zero.</p>
+      <h3>Meta e percentual acumulado</h3>
+      <p>A meta atualmente utilizada é de 70%, mas ela deve ser configurável. O percentual acumulado é calculado da seguinte forma:</p>
+      <pre>Percentual acumulado = concluído acumulado / recebido acumulado</pre>
+      <p>O percentual mensal pode ultrapassar 100% quando, em determinado mês, são concluídas demandas que foram recebidas em meses anteriores. Esse comportamento deve ser mantido caso seja a regra desejada pela área.</p>
+    </section>
+
+    <section id="grupos">
+      <h2>8. DIOPE e Gerências Regionais</h2>
+      <p>Os indicadores são separados em dois grupos:</p>
+      <ul>
+        <li><strong>DIOPE / Vinculadas:</strong> DIOPE, GEOPE, GEMAN, GEMON e GEFEN.</li>
+        <li><strong>Gerências Regionais:</strong> CRATEÚS, CRATO, SOBRAL, IGUATU, ITAPIPOCA, LIMOEIRO, METROPOLITANAS, PENTECOSTE, QUIXERAMOBIM e outras cadastradas.</li>
+      </ul>
+      <table>
+        <thead><tr><th>Unidade</th><th>Grupo</th></tr></thead>
+        <tbody>
+          <tr><td>GEOPE</td><td>DIOPE / Vinculadas</td></tr>
+          <tr><td>GEMAN</td><td>DIOPE / Vinculadas</td></tr>
+          <tr><td>CRATO</td><td>Gerências Regionais</td></tr>
+          <tr><td>LIMOEIRO</td><td>Gerências Regionais</td></tr>
+          <tr><td>SOBRAL</td><td>Gerências Regionais</td></tr>
+        </tbody>
+      </table>
+      <p>A classificação deve vir de um cadastro de unidades, não de textos digitados manualmente.</p>
+    </section>
+
+    <section>
+      <h2>9. Gráficos e painéis</h2>
+      <ul>
+        <li><strong>Demandas mensais:</strong> comparação entre demandas recebidas e concluídas em cada mês.</li>
+        <li><strong>Demandas acumuladas:</strong> recebidos acumulados, concluídos acumulados, percentual acumulado e meta.</li>
+        <li><strong>Suporte a Atendimento Técnico:</strong> comparação do percentual acumulado com a meta.</li>
+        <li><strong>Gráficos DIOPE:</strong> mesmas visualizações com foco em DIOPE e unidades vinculadas.</li>
+      </ul>
+      <p>Os gráficos devem ser calculados a partir da base de dados. Nenhum valor de gráfico deve exigir preenchimento manual.</p>
+    </section>
+
+    <section>
+      <h2>10. Dados auxiliares</h2>
+      <p>As listas existentes na aba de dados devem se tornar cadastros do sistema. Elas incluem regionais, tipos de demanda, técnicos, status, marcas, meios de comunicação e modelos de medidores.</p>
+      <p>Exemplos de meios de comunicação: Chamado Online, WhatsApp, E-mail, Supervisório, Pessoalmente, Identificado GEMED e Reunião (FAG).</p>
+      <div class="info-box">Campos críticos devem utilizar opções padronizadas para evitar variações de escrita, como “Chamado online”, “Chamado Online” e “chamado online”.</div>
+    </section>
+
+    <section id="modelo">
+      <h2>11. Modelo de dados recomendado</h2>
+      <h3>Chamado</h3>
+      <ul><li>ID interno, número externo, título, descrição, canal de origem e solicitante</li><li>Data de abertura, status, regional, unidade e data da última atualização</li></ul>
+      <h3>Item do chamado</h3>
+      <ul><li>ID, chamado associado, tipo de demanda, equipamento e local</li><li>Situação relatada, solução, data de conclusão, técnico responsável e status</li></ul>
+      <h3>Equipamento</h3>
+      <ul><li>ID, marca, modelo, tombo, número de série, tipo e local</li></ul>
+      <h3>Cadastros auxiliares</h3>
+      <ul><li>Regionais, unidades, técnicos, tipos de demanda, status, canais, locais e metas por período</li></ul>
+      <p>Os indicadores podem ser calculados por consulta em tempo real ou armazenados em uma tabela consolidada. Caso sejam armazenados, deve existir rotina de recálculo para correções posteriores.</p>
+    </section>
+
+    <section id="validacoes">
+      <h2>12. Regras a validar</h2>
+      <ol>
+        <li>Qual data define o mês da demanda recebida?</li>
+        <li>Qual data define o mês da demanda concluída?</li>
+        <li>Cada linha representa um chamado completo ou um item/equipamento do chamado?</li>
+        <li>Como chamados com vários equipamentos devem ser contabilizados?</li>
+        <li>Demandas por WhatsApp, e-mail e supervisório entram no mesmo indicador dos chamados online?</li>
+        <li>Como tratar solicitações sem número de chamado?</li>
+        <li>PARALISADA deve permanecer como demanda aberta nos indicadores?</li>
+        <li>Demandas canceladas devem receber status CANCELADO ou CONCLUÍDO?</li>
+        <li>A meta de 70% é fixa ou varia por período, unidade ou tipo de demanda?</li>
+        <li>Os indicadores contam linhas, chamados únicos ou itens atendidos?</li>
+        <li>Quais unidades pertencem oficialmente à DIOPE/Vinculadas?</li>
+        <li>A plataforma possui API, exportação CSV/Excel ou apenas acesso por interface?</li>
+        <li>Qual será a periodicidade de sincronização?</li>
+        <li>É necessário manter histórico de alterações?</li>
+      </ol>
+    </section>
+
+    <section id="requisitos">
+      <h2>13. Requisitos de automação</h2>
+      <ul>
+        <li>Sincronização por identificador único, sem duplicar chamados.</li>
+        <li>Registro da data e hora da última sincronização.</li>
+        <li>Histórico de alterações de status, técnico e solução.</li>
+        <li>Tratamento de campos vazios e valores N/A.</li>
+        <li>Datas armazenadas em formato ISO: <code>YYYY-MM-DD</code>.</li>
+        <li>Padronização de status, regionais, tipos de demanda e canais.</li>
+        <li>Possibilidade de correção manual de dados importados.</li>
+        <li>Registro de erros de integração e possibilidade de reprocessamento.</li>
+        <li>Filtros por período, status, regional, técnico, tipo, marca e local.</li>
+        <li>Exportação para Excel ou CSV, se ainda necessária.</li>
+        <li>Atualização automática de indicadores após cada alteração relevante.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>14. Exemplo de processo automatizado</h2>
+      <ol>
+        <li>Um chamado é aberto para manutenção de um medidor.</li>
+        <li>A integração identifica o chamado pelo número externo.</li>
+        <li>O sistema associa equipamento, regional, local e tipo de demanda.</li>
+        <li>A demanda é criada com status ANDAMENTO.</li>
+        <li>Após o atendimento, técnico, data de manutenção e solução são atualizados.</li>
+        <li>Ao encerrar o chamado, o status muda para CONCLUÍDO.</li>
+        <li>A demanda entra no indicador de conclusão do mês correspondente.</li>
+        <li>Resumo e gráficos são recalculados automaticamente.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>15. Resultado esperado</h2>
+      <p>O usuário não deverá copiar informações manualmente da plataforma de chamados para a planilha. O aplicativo deverá manter dados estruturados, complementar informações operacionais, controlar o relacionamento entre chamados e equipamentos, atualizar indicadores e gerar relatórios por período, regional e unidade.</p>
+      <p>A planilha atual deve ser utilizada como referência de validação. Durante o desenvolvimento, recomenda-se comparar os resultados do sistema com os resultados já existentes, sobretudo para chamados com múltiplos itens, demandas sem número de chamado e conclusões em mês diferente do mês de abertura.</p>
+    </section>
+
+    <section class="contact-box" aria-label="Contato para dúvidas">
+      <p><strong>Ficou com alguma dúvida sobre este documento?</strong></p>
+      <a class="whatsapp-link" href="https://wa.me/5585981998007" target="_blank" rel="noopener noreferrer">Conversar pelo WhatsApp: +55 85 98199-8007</a>
+    </section>
+
+    <footer>
+      Documento elaborado a partir da estrutura funcional da planilha de suporte e indicadores fornecida como referência. Em caso de dúvidas, entre em contato pelo <a href="https://wa.me/5585981998007" target="_blank" rel="noopener noreferrer">WhatsApp</a>.
+    </footer>
+  </main>
+</body>
+</html>
