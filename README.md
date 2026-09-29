@@ -6,7 +6,7 @@ A documentação serve como referência para o desenvolvimento de um aplicativo 
 
 ## Arquivos
 
-- **documentacao_planilha_suporte_bi.html** — Documento completo em HTML com:
+- **index.html** — Documento completo em HTML com:
   - Estrutura e campos da planilha
   - Regras de status e classificação das demandas
   - Fluxo de integração esperado
@@ -19,11 +19,6 @@ A documentação serve como referência para o desenvolvimento de um aplicativo 
 ## Como visualizar a documentação
 
 A documentação está publicada como uma página web acessível em:
-
-**https://GusLameu.github.io/documentacao-planilha-suporte/documentacao_planilha_suporte_bi.html**
-
-Se o arquivo for renomeado para `index.html`, o link ficará:
-
 **https://GusLameu.github.io/documentacao-planilha-suporte/**
 
 ## Para quem é este documento
@@ -59,7 +54,7 @@ Em caso de dúvidas sobre o conteúdo da documentação, entre em contato pelo W
 Para atualizar a documentação:
 
 1. Gere uma nova versão do arquivo HTML.
-2. Substitua o arquivo `documentacao_planilha_suporte_bi.html` neste repositório.
+2. Substitua o arquivo `index.html` neste repositório.
 3. Faça um novo commit.
 4. O GitHub Pages atualizará automaticamente a página em alguns minutos.
 
